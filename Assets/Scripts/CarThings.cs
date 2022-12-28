@@ -13,6 +13,15 @@ public class CarThings : MonoBehaviour
 
     Rigidbody2D body;
     
+    Vector3[] frontWheelGlobalLocs() {
+        Vector3[] Vec = {transform.TransformPoint(frontWheelLocs[0]), transform.TransformPoint(frontWheelLocs[1])};
+        return Vec;
+    }
+
+    Vector3[] rearWheelGlobalLocs() {
+        Vector3[] Vec = {transform.TransformPoint(rearWheelLocs[0]), transform.TransformPoint(rearWheelLocs[1])};
+        return Vec;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +40,11 @@ public class CarThings : MonoBehaviour
 
         var wheelVector = new Vector2(wheelForce * Mathf.Sin(steerAngle * (Mathf.PI/180f)), wheelForce * Mathf.Cos(steerAngle * (Mathf.PI/180f)));
         var globalWheelVector = transform.TransformDirection(wheelVector);
-        body.AddForceAtPosition(globalWheelVector, transform.TransformPoint(frontWheelLocs[0]));
-        body.AddForceAtPosition(globalWheelVector, transform.TransformPoint(frontWheelLocs[1]));
+        body.AddForceAtPosition(globalWheelVector, frontWheelGlobalLocs()[0]);
+        body.AddForceAtPosition(globalWheelVector, frontWheelGlobalLocs()[0]);
 
-        Debug.Log(globalWheelVector);
+        var tracker = GetComponentInChildren<PointKinematicsTracker>();
+
+        Debug.Log("local: " + tracker.GetLocalPos() + " global: " + tracker.GetGlobalPos());
     }
 }
