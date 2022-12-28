@@ -14,7 +14,7 @@ public class PointKinematicsTracker : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         pastPos = currentPos;
         pastVel = currentVel;
@@ -33,7 +33,7 @@ public class PointKinematicsTracker : MonoBehaviour
     }
 
     public Vector3 GetLocalVel() {
-        return transform.position;
+        return transform.parent.InverseTransformDirection(currentVel);
     }
 
     public Vector3 GetGlobalVel() {
@@ -41,7 +41,7 @@ public class PointKinematicsTracker : MonoBehaviour
     }
 
     public Vector3 GetLocalAcc() {
-        return acc;
+        return transform.parent.InverseTransformDirection(acc);
     }
 
     public Vector3 GetGlobalAcc() {
