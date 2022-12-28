@@ -17,7 +17,7 @@ public class CarThings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var body = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody2D>();
         controls = GetComponent<CarController>();
     }
 
@@ -34,6 +34,6 @@ public class CarThings : MonoBehaviour
         body.AddForceAtPosition(frontWheelLocs[0], globalWheelVector);
         body.AddForceAtPosition(frontWheelLocs[1], globalWheelVector);
 
-        Debug.Log(wheelVector);
+        Debug.Log(globalWheelVector);
     }
 }
