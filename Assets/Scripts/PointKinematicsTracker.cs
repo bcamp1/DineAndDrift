@@ -41,7 +41,7 @@ public class PointKinematicsTracker : MonoBehaviour
     }
 
     public Vector3 GetLocalAcc() {
-        return transform.position;
+        return acc;
     }
 
     public Vector3 GetGlobalAcc() {
