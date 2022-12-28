@@ -9,7 +9,7 @@ public class CarThings : MonoBehaviour
     static Vector2[] rearWheelLocs = {new Vector2(0.6f, -0.8f), new Vector2(-0.6f, -0.8f)};
 
     static float MaxSteerAngle = 45f; // Degrees
-    static float MaxWheelForce = 500f;
+    static float MaxWheelForce = 20f;
 
     Rigidbody2D body;
     
@@ -31,8 +31,8 @@ public class CarThings : MonoBehaviour
 
         var wheelVector = new Vector2(wheelForce * Mathf.Sin(steerAngle * (Mathf.PI/180f)), wheelForce * Mathf.Cos(steerAngle * (Mathf.PI/180f)));
         var globalWheelVector = transform.TransformDirection(wheelVector);
-        body.AddForceAtPosition(frontWheelLocs[0], globalWheelVector);
-        body.AddForceAtPosition(frontWheelLocs[1], globalWheelVector);
+        body.AddForceAtPosition(transform.TransformPoint(frontWheelLocs[0]), globalWheelVector);
+        body.AddForceAtPosition(transform.TransformPoint(frontWheelLocs[1]), globalWheelVector);
 
         Debug.Log(globalWheelVector);
     }
