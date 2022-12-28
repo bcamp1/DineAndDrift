@@ -14,6 +14,9 @@
 # VS Code Config
 .vscode/
 
+# Rider Config
+.idea/
+
 # Gradle cache directory
 .gradle/
 
