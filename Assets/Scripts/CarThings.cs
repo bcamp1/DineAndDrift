@@ -9,12 +9,15 @@ public class CarThings : MonoBehaviour
     static Vector2[] rearWheelLocs = {new Vector2(0.6f, -0.8f), new Vector2(-0.6f, -0.8f)};
 
     static float MaxSteerAngle = 45f; // Degrees
-    static float MaxWheelForce = 200f;
+    static float MaxWheelForce = 500f;
+
+    Rigidbody2D body;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        var body = GetComponent<Rigidbody2D>();
         controls = GetComponent<CarController>();
     }
 
@@ -23,7 +26,8 @@ public class CarThings : MonoBehaviour
     {
         float steerAngle = MaxSteerAngle * controls.Steering;
         float wheelForce = controls.GasPedal ? MaxWheelForce : 0;
-        var body = GetComponent<Rigidbody2D>();
+        body.inertia = 1000;
+
 
         var wheelVector = new Vector2(wheelForce * Mathf.Sin(steerAngle * (Mathf.PI/180f)), wheelForce * Mathf.Cos(steerAngle * (Mathf.PI/180f)));
         var globalWheelVector = transform.TransformDirection(wheelVector);
