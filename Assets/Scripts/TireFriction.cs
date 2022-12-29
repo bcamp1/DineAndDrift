@@ -56,7 +56,7 @@ public class TireFriction : MonoBehaviour
 
         
         
-        Vector3 forceVec = new Vector3(-xNorm * slidingMagnitude, -yNorm* rollingMagnitude, 0f);
+        Vector3 forceVec = new Vector3(xNorm * slidingMagnitude, -yNorm* rollingMagnitude, 0f);
         body.AddRelativeForce(forceVec);
 
         // if (!sliding) {

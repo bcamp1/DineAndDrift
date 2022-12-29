@@ -10,8 +10,13 @@ public class CarThings : MonoBehaviour
     public GameObject TLWheel;
     public GameObject BRWheel;
     public GameObject BLWheel;
+    public GameObject TRNode;
+    public GameObject TLNode;
+    public GameObject BRNode;
+    public GameObject BLNode;
 
     PointKinematicsTracker TRTracker, TLTracker, BRTracker, BLTracker;
+    FixedJoint2D TRJoint, TLJoint, BRJoint, BLJoint;
 
     static float MaxSteerAngle = 45f; // Degrees
     static float MaxWheelForce = 500f;
@@ -28,6 +33,11 @@ public class CarThings : MonoBehaviour
         TLTracker = TLWheel.GetComponent<PointKinematicsTracker>();
         BRTracker = BRWheel.GetComponent<PointKinematicsTracker>();
         BLTracker = BLWheel.GetComponent<PointKinematicsTracker>();
+
+        TRJoint = TRNode.GetComponent<FixedJoint2D>();
+        TLJoint = TLNode.GetComponent<FixedJoint2D>();
+        BRJoint = BRNode.GetComponent<FixedJoint2D>();
+        BLJoint = BLNode.GetComponent<FixedJoint2D>();
     }
 
     // Update is called once per frame
@@ -44,5 +54,9 @@ public class CarThings : MonoBehaviour
         var globalWheelVector = transform.TransformDirection(wheelVector);
         body.AddForceAtPosition(globalWheelVector, TRTracker.GetGlobalPos());
         body.AddForceAtPosition(globalWheelVector, TLTracker.GetGlobalPos());
+
+        Debug.Log("bl: " + BLJoint.reactionForce + " br: " + BRJoint.reactionForce);
+        BLJoint.GetComponent<Rigidbody2D>().AddForce(new Vector3(-BLJoint.reactionForce.x*0.01f, -BLJoint.reactionForce.y*0.01f, 0));
+        BRJoint.GetComponent<Rigidbody2D>().AddForce(new Vector3(-BRJoint.reactionForce.x*0.01f, -BRJoint.reactionForce.y*0.01f, 0));
     }
 }
